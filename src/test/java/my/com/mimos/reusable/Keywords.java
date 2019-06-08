@@ -9,9 +9,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.Reporter;
@@ -191,5 +191,32 @@ public class Keywords {
             ATUReports.add("Switch Window failed",e.getMessage(), LogAs.FAILED,new CaptureScreen(CaptureScreen.ScreenshotOf.BROWSER_PAGE));
         }
     }
+    
+    public static void select_value(By loc, String value) {
+    	Select a = new Select(findElement(loc));
+    	a.selectByValue(value);
+    	ATUReports.add("Select by value in "+loc.toString(),value, LogAs.PASSED,new CaptureScreen(CaptureScreen.ScreenshotOf.BROWSER_PAGE));
+    }
+    public static void select_text(By loc, String text) {
+    	Select a = new Select(findElement(loc));
+    	a.selectByVisibleText(text);
+    	ATUReports.add("Select by text in "+loc.toString(),text, LogAs.PASSED,new CaptureScreen(CaptureScreen.ScreenshotOf.BROWSER_PAGE));
+    }
+	public static void select_index(By loc, int index) {	
+    	Select a = new Select(findElement(loc));
+    	a.selectByIndex(index);
+    	ATUReports.add("Select by index in "+loc.toString(),Integer.toString(index), LogAs.PASSED,new CaptureScreen(CaptureScreen.ScreenshotOf.BROWSER_PAGE));
+	}
+	
+	public static void mouseover(By loc)
+	{
+		Actions act = new Actions(driver);
+		act.moveToElement(findElement(loc)).build().perform();
+		ATUReports.add("Mouse Over on "+loc.toString(), LogAs.PASSED,new CaptureScreen(CaptureScreen.ScreenshotOf.BROWSER_PAGE));
+	}
 
+	public static void quit() {
+		// TODO Auto-generated method stub
+		driver.quit();
+	}
 }
